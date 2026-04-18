@@ -1,0 +1,13 @@
+jobs:
+  bash-example:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run a single-line script
+        run: echo "Hello from GitHub Actions!"
+
+      - name: Run a multi-line script
+        run: |
+          echo "Current directory: $(pwd)"
+          USER_NAME="GitHub Runner"
+          echo "Hello, $USER_NAME"
+        shell: bash
