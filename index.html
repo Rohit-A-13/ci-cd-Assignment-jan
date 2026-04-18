@@ -1,3 +1,11 @@
+  prod:
+    if: github.ref == 'refs/heads/prod'
+    runs-on: ubuntu-latest
+
+    environment:
+      name: production
+      url: ${{ steps.deployment.outputs.page_url }}
+
 dev:
     if: github.ref == 'refs/heads/dev'
   test:
@@ -8,6 +16,12 @@ dev:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Run Prod Commands
+        run: |
+          echo "=== PROD STAGE ==="
+          echo "hello prod"
+
+    
       - name: Run Dev Commands
         run: |
           echo "=== DEV STAGE ==="
