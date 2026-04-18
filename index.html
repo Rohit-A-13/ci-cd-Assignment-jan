@@ -1,3 +1,5 @@
+dev:
+    if: github.ref == 'refs/heads/dev'
   test:
     if: github.ref == 'refs/heads/test'
     runs-on: ubuntu-latest
@@ -6,6 +8,10 @@
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Run Dev Commands
+        run: |
+          echo "=== DEV STAGE ==="
+          echo "hello dev"
       - name: Run Test Commands
         run: |
           echo "=== TEST STAGE ==="
