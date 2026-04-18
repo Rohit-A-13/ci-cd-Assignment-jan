@@ -1,13 +1,12 @@
-jobs:
-  bash-example:
+  test:
+    if: github.ref == 'refs/heads/test'
     runs-on: ubuntu-latest
-    steps:
-      - name: Run a single-line script
-        run: echo "Hello from GitHub Actions!"
 
-      - name: Run a multi-line script
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Run Test Commands
         run: |
-          echo "Current directory: $(pwd)"
-          USER_NAME="GitHub Runner"
-          echo "Hello, $USER_NAME"
-        shell: bash
+          echo "=== TEST STAGE ==="
+          echo "hello test"
