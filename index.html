@@ -1,13 +1,31 @@
-jobs:
-  bash-example:
+  prod:
+    if: github.ref == 'refs/heads/prod'
     runs-on: ubuntu-latest
-    steps:
-      - name: Run a single-line script
-        run: echo "Hello from GitHub Actions!"
 
-      - name: Run a multi-line script
+    environment:
+      name: production
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Run Prod Commands
         run: |
-          echo "Current directory: $(pwd)"
-          USER_NAME="GitHub Runner"
-          echo "Hello, $USER_NAME"
-        shell: bash
+          echo "=== PROD STAGE ==="
+          echo "hello prod"
+
+      # Setup GitHub Pages
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      # Upload static site
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: '.'
+
+      # Deploy
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v5
